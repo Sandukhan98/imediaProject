@@ -1,0 +1,110 @@
+<div class="agileits-top">
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+ 
+
+    <h3>Prénom  <span style="color:#ff0000">*</span></h3>
+    <input type="text" id="firstName" name="firstName" formControlName="firstName">
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.firstName.errors?.required 
+    && customerForm.controls.firstName.touched">
+    ce champ est obligatoire</small>
+ 
+
+    <h3>Nom  <span style="color:#ff0000">*</span></h3>
+    <input type="text" id="lastName" name="lastName" formControlName="lastName">
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.lastName.errors?.required 
+    && customerForm.controls.lastName.touched">
+    ce champ est obligatoire</small>
+
+
+    <div style="margin-top: 2%; margin-bottom: 2%;">
+        <h3>Numéro de Téléphone (mobile de préférence pour échange par SMS)  <span style="color:#ff0000">*</span></h3>
+    <ngx-intl-tel-input
+    
+    [preferredCountries]="['be']"
+    [enablePlaceholder]="true"
+    [enableAutoCountrySelect]="true"
+
+		name="phone"
+		formControlName="phone"
+	></ngx-intl-tel-input>
+    </div>
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.phone.errors?.required 
+    && customerForm.controls.phone.touched">
+    ce champ est obligatoire</small>
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.phone.errors
+    && !customerForm.controls.phone.errors?.required
+    && !customerForm.controls.phone.errors?.validatePhoneNumber?.valid 
+    && customerForm.controls.phone.touched">
+    veuillez entrer un numéro de téléphone valide</small>
+    <!-- <input type="text" id="phone" name="phone" formControlName="phone">  -->
+  
+
+
+    <h3>Email  <span style="color:#ff0000">*</span></h3>
+    <input type="email" id="email" name="email" formControlName="email">
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.email.errors?.required 
+    && customerForm.controls.email.touched">
+    ce champ est obligatoire</small>
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.email.errors?.email 
+    && customerForm.controls.email.touched">
+    veuillez entrer une adresse mail valide</small>
+
+    <h3>Adresse  <span style="color:#ff0000">*</span></h3>
+    <input type="text" id="address" name="address" formControlName="address">
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.address.errors?.required 
+    && customerForm.controls.address.touched">
+    ce champ est obligatoire</small>
+
+
+    <h3>Code postal  <span style="color:#ff0000">*</span></h3>
+    <input type="text" id="zipCode" name="zipCode" formControlName="zipCode"> 
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.zipCode.errors?.required 
+    && customerForm.controls.zipCode.touched">
+    ce champ est obligatoire</small>
+  
+
+    <h3>Ville  <span style="color:#ff0000">*</span></h3>
+    <input type="text" id="city" name="city" formControlName="city">
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.city.errors?.required 
+    && customerForm.controls.city.touched">
+    ce champ est obligatoire</small>
+
+
+    <h3>Pays  <span style="color:#ff0000">*</span></h3>
+  <mat-select-country appearance="outline"
+                    label="pays"
+                    id="country"
+                    name="country"
+                    formControlName="country"
+                    aria-placeholder="Choisir pays"
+                    [value]="defaultCountry">
+</mat-select-country>
+    <small style="color: red;"  
+    *ngIf="customerForm.controls.country.errors?.required 
+    && customerForm.controls.country.touched">
+    ce champ est obligatoire</small>
+
+    <p>
+        <input type="checkbox" id="isAcceptingConditions" name="isAcceptingConditions" formControlName="isAcceptingConditions"
+        style="margin-right: 1%;">
+        <label for="isAcceptingConditions">J'accepte les conditions générales de iMedia <span style="color:#ff0000">*</span></label>
+        <small style="color: red;"  
+            *ngIf="customerForm.controls.isAcceptingConditions.errors?.required 
+            && customerForm.controls.isAcceptingConditions.touched">
+            il faut accepter nos conditions générales pour bénificier de notre service</small>
+    </p>
+
+    <input type="submit" value="envoyer" [disabled]="!customerForm.valid">
+  
+ 
+</form>
+</div>
