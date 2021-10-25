@@ -1,6 +1,6 @@
 <div class="agileits-top">
     <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-        <h2>nous sommes heureux de vous accueillir de nouveau chère client</h2>
+        <h2>Nous sommes heureux de vous accueillir à nouveau</h2>
         <h1>{{firstName}} {{lastName}}</h1>
         <div style="padding-top: 10%;">
             <input type="checkbox" id="wantRepare" name="wantRepare" formControlName="wantRepare"
@@ -19,7 +19,7 @@
             </p>
         </div>
     
-        <input type="submit" value="envoyer" [disabled]="!customerForm.valid">
+        <input type="submit" value="ENVOYER" [disabled]="!customerForm.valid">
       
      
     </form>

@@ -78,7 +78,7 @@ mark,
 audio,
 video {
   font-size: 100%;
-  font: inherit;
+
   vertical-align: baseline;
   position: relative;
 }
@@ -201,7 +201,6 @@ body {
   background: linear-gradient(to top, #1d2b3f, #354458);
   background-size: cover;
   background-attachment: fixed;
-  font-family: "Roboto", sans-serif;
 }
 
 h2 {
@@ -209,9 +208,8 @@ h2 {
   text-align: center;
   color: rgb(0, 0, 0);
   font-weight: 100;
-  text-transform: capitalize;
+
   letter-spacing: 4px;
-  font-family: "Roboto", sans-serif;
 }
 
 h1 {
@@ -219,9 +217,8 @@ h1 {
   text-align: center;
   color: rgb(0, 0, 0);
   font-weight: bold;
-  text-transform: capitalize;
+
   letter-spacing: 4px;
-  font-family: "Roboto", sans-serif;
 }
 
 /*-- main --*/
@@ -268,7 +265,6 @@ input[type="email"] {
   background-size: 100%;
   background-repeat: no-repeat;
   color: #000;
-  font-family: "Roboto", sans-serif;
 }
 
 input.email,
@@ -317,7 +313,8 @@ input.text.w3lpass {
 }
 
 input[type="submit"] {
-  font-size: 0.9em;
+  font-size: 1.5em;
+  font-weight: bold;
   color: rgb(255, 255, 255);
   background: #1d2b3f;
   outline: none;
