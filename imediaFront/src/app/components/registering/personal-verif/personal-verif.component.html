@@ -1,0 +1,17 @@
+<div class="agileits-top">
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+        <h3>Email  <span style="color:#ff0000">*</span></h3>
+
+         <input type="text" id="email" name="email" formControlName="email">
+         <small style="color: red;"  
+         *ngIf="emailForm.controls.email.errors?.required 
+         && emailForm.controls.email.touched">
+         ce champ est obligatoire</small>
+         <small style="color: red;"  
+         *ngIf="emailForm.controls.email.errors?.email 
+         && emailForm.controls.email.touched">
+         veuillez entrer une adresse mail valide</small>
+
+        <input type="submit" value="envoyer" [disabled]="!emailForm.valid">
+    </form>
+</div>

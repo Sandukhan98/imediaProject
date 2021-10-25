@@ -112,22 +112,16 @@
         *ngIf="customerForm.controls.country.errors?.required 
         && customerForm.controls.country.touched">
         ce champ est obligatoire</small>
-        <div style="padding-top: 5%;">
-            <input type="checkbox" id="wantRepare" name="wantRepare" formControlName="wantRepare"
-            style="margin-right: 1%;">
-            <label for="wantRepare">Je viens pour faire une réparation</label>
-        </div>
-        <div>
+    
+        <p>
             <input type="checkbox" id="isAcceptingConditions" name="isAcceptingConditions" formControlName="isAcceptingConditions"
             style="margin-right: 1%;">
             <label for="isAcceptingConditions">J'accepte les conditions générales de iMedia <span style="color:#ff0000">*</span></label>
-            <p>
-                <small style="color: red; float: left;"  
+            <small style="color: red;"  
                 *ngIf="customerForm.controls.isAcceptingConditions.errors?.required 
                 && customerForm.controls.isAcceptingConditions.touched">
                 il faut accepter nos conditions générales pour bénificier de notre service</small>
-            </p>
-        </div>
+        </p>
     
         <input type="submit" value="envoyer" [disabled]="!customerForm.valid">
       

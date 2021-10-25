@@ -13,7 +13,7 @@ export class ChoiceComponent implements OnInit {
   }
 
   public personalClick(){
-    this.router.navigateByUrl('/personalVerif');
+    this.router.navigate(['/personal'], {queryParams: {orgstructure: 1}});
   }
 
   public companyClick(){

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 @Component({
-  selector: 'app-personal',
-  templateUrl: './personal.component.html',
-  styleUrls: ['./personal.component.css']
+  selector: 'app-company-info',
+  templateUrl: './company-info.component.html',
+  styleUrls: ['./company-info.component.css']
 })
-
-export class PersonalComponent implements OnInit {
+export class CompanyInfoComponent implements OnInit {
   customerForm = new FormGroup({
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),
@@ -18,7 +17,8 @@ export class PersonalComponent implements OnInit {
     zipCode: new FormControl("", [Validators.required]),
     city: new FormControl("", [Validators.required]),
     country : new FormControl("", [Validators.required]),
-    wantRepare : new FormControl(),
+    company: new FormControl("", [Validators.required]),
+    tva: new FormControl("", [Validators.required, Validators.pattern(/^(BE|Be|bE|be)\d{10}$/)]),
     isAcceptingConditions : new FormControl(false, [Validators.requiredTrue]),
   });
 
@@ -29,20 +29,29 @@ export class PersonalComponent implements OnInit {
     name: "Belgique",
     numericCode: "056"
  };
-
-  constructor(private activatedRoute: ActivatedRoute, private data : DataService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private data : DataService) { }
 
   ngOnInit(): void {
+    
 
     this.activatedRoute.queryParams.subscribe(params => {
-      this.customerForm.patchValue({  
+      this.customerForm.patchValue({
+        firstName : params.name,
+        lastName : params.lastname,
+        company : params.company,
+        city : params.city,
+        zipCode : params.zip,
+        address : params.address,
+        tva : params.tva,
         email : (params.email)? params.email : "",
+        mobile : (params.tel)? params.tel : ""
       });
     });
   }
-
   onSubmit(){
     this.data.addCustomer({ 
+      tva : this.customerForm.value.tva,
+      company : this.customerForm.value.company,
       lastname : this.customerForm.value.lastName,
       name : this.customerForm.value.firstName,
       address : this.customerForm.value.address,
@@ -52,20 +61,7 @@ export class PersonalComponent implements OnInit {
       email : this.customerForm.value.email,
       country : this.customerForm.value.country.name}).subscribe(
       (response) => {
-        if(this.customerForm.value.wantRepare){
-          console.log("wantRepare");
-          
-          this.data.addWorkorder({customerID : response.customerID}).subscribe(
-            (response) => {
-              console.log(response);
-            },
-            (error) => { console.log(error); });
-        }
-
-        this.router.navigate(['/ready'], {queryParams: {
-          firstName : this.customerForm.value.firstName,
-          lastName : this.customerForm.value.lastName,
-        }});
+        console.log(response);
       },
       (error) => { console.log(error); });
   }

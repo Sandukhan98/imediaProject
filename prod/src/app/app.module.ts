@@ -13,9 +13,6 @@ import { ChoiceComponent } from './components/registering/choice/choice.componen
 import { CompanyTVAComponent } from './components/registering/company-tva/company-tva.component';
 import { CompanyInfoComponent } from './components/registering/company-info/company-info.component';
 import { PubComponent } from './components/pub/pub.component';
-import { PersonalVerifComponent } from './components/registering/personal-verif/personal-verif.component';
-import { PersonalFoundComponent } from './components/registering/personal-found/personal-found.component';
-import { ReadyComponent } from './components/registering/ready/ready.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +22,7 @@ import { ReadyComponent } from './components/registering/ready/ready.component';
     ChoiceComponent,
     CompanyTVAComponent,
     CompanyInfoComponent,
-    PubComponent,
-    PersonalVerifComponent,
-    PersonalFoundComponent,
-    ReadyComponent
+    PubComponent
   ],
   imports: [
     BrowserModule,

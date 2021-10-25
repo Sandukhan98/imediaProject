@@ -1,0 +1,15 @@
+<div class="agileits-top">
+    <form [formGroup]="tvaForm" (ngSubmit)="onSubmit()">
+        <h3>Numéro de TVA  <span style="color:#ff0000">*</span></h3>
+
+         <input type="text" id="tva" name="tva" formControlName="tva"
+         style="text-transform: uppercase;">
+         <small *ngIf="tvaForm.controls.tva.errors?.required && tvaForm.controls.tva.touched"
+         style="color: red;">ce champ est obligatoire</small>
+         <small *ngIf="tvaForm.controls.tva.errors
+         && !tvaForm.controls.tva.errors?.required
+         && tvaForm.controls.tva.touched"
+         style="color: red;">veuillez entrer un numéro de TVA valide BExxxxxxxxxx</small>
+        <input type="submit" value="envoyer" [disabled]="!tvaForm.valid">
+    </form>
+</div>

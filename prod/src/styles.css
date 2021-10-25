@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: auto;
+  background-image: url(/assets/images/bg.jpg);
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+router-outlet + * {
+  display: block; /* Change display inline to block */
+  animation: fade 1s;
+}

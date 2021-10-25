@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Data } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-personal',
@@ -18,7 +18,6 @@ export class PersonalComponent implements OnInit {
     zipCode: new FormControl("", [Validators.required]),
     city: new FormControl("", [Validators.required]),
     country : new FormControl("", [Validators.required]),
-    wantRepare : new FormControl(),
     isAcceptingConditions : new FormControl(false, [Validators.requiredTrue]),
   });
 
@@ -30,15 +29,9 @@ export class PersonalComponent implements OnInit {
     numericCode: "056"
  };
 
-  constructor(private activatedRoute: ActivatedRoute, private data : DataService, private router: Router) { }
+  constructor(private data : DataService) { }
 
   ngOnInit(): void {
-
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.customerForm.patchValue({  
-        email : (params.email)? params.email : "",
-      });
-    });
   }
 
   onSubmit(){
@@ -52,20 +45,7 @@ export class PersonalComponent implements OnInit {
       email : this.customerForm.value.email,
       country : this.customerForm.value.country.name}).subscribe(
       (response) => {
-        if(this.customerForm.value.wantRepare){
-          console.log("wantRepare");
-          
-          this.data.addWorkorder({customerID : response.customerID}).subscribe(
-            (response) => {
-              console.log(response);
-            },
-            (error) => { console.log(error); });
-        }
-
-        this.router.navigate(['/ready'], {queryParams: {
-          firstName : this.customerForm.value.firstName,
-          lastName : this.customerForm.value.lastName,
-        }});
+        console.log(response);
       },
       (error) => { console.log(error); });
   }

@@ -64,8 +64,11 @@ function verifyClientExistence(found, notFound, number, email) {
                         } else {
                             jsResponse = JSON.parse(body)
                             var count = parseInt(jsResponse["@attributes"].count)
-                            if(count > 0){
+                            if(count  == 1){
                                 found(jsResponse.Customer);
+                            }
+                            else if (count > 1) {
+                                found(jsResponse.Customer[0]);
                             }
                             else{
                                 notFound();
@@ -90,7 +93,7 @@ function addNewCustomer(info, callback){
             if(error) {
                 console.error(error);
             } else {
-                callback(response);
+                callback({customerID : body.Customer.customerID});
             }
         });
     })
@@ -114,7 +117,7 @@ function getCompanyInfo(vat, callback) {
         } else {
             var jsBody = JSON.parse(body)
             var info = {}
-            console.log(jsBody);
+
             if(jsBody.enterpriseNumber){
                 info = {
                     tva : "BE" + jsBody.enterpriseNumber.replace(/\./g,""),
@@ -160,17 +163,20 @@ function getCompanyInfo(vat, callback) {
 
 
 app.post("/tva", (req, res, next) => {
-    console.log(req.body);
+
     getCompanyInfo(req.body, (info) => {
-        console.log(info);
         res.send(info);
-        // console.log(info);
     })
 });
 
 app.post("/addCustomer", (req, res, next) => {
-    console.log(req.body);
-    verifyClientExistence((customer) => {}, () => {
+    verifyClientExistence((customer) => {
+        res.send({
+            firstName : customer.firstName,
+            lastName : customer.lastName,
+            customerID : customer.customerID,
+        })
+    }, () => {
         addNewCustomer({
             firstName : req.body.name,
             lastName : req.body.lastname,
@@ -197,9 +203,35 @@ app.post("/addCustomer", (req, res, next) => {
                     }
                 }
             }
-        }, (response) => {res.send(response)})
+        }, (response) => {res.send({
+            firstName : response.firstName,
+            lastName : response.lastName,
+            customerID : response.customerID,
+        })})
     }, req.body.tel, req.body.email);
 });
+
+app.post("/exist", (req, res, next) => {
+    verifyClientExistence((response)=>{
+        res.send({
+            found : true,
+            firstName : response.firstName,
+            lastName : response.lastName,
+            customerID : response.customerID,
+        });
+    },
+    () => {
+        res.send({
+            found : false,
+        });
+    }, null, req.body.email)
+});
+
+app.post("/workorder", (req, res, next) => {
+    console.log(req.body); 
+    res.send({response : "OK"});
+});
+
 app.listen(3000, () => {
  console.log("Server running on port 3000");
  
