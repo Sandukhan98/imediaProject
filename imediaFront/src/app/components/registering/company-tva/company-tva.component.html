@@ -1,5 +1,6 @@
 <div class="agileits-top">
     <form [formGroup]="tvaForm" (ngSubmit)="onSubmit()">
+        <a class="previous" routerLink=".."><fa-icon [icon]="faArr"></fa-icon></a>
         <h3>Numéro de TVA  <span style="color:#ff0000">*</span></h3>
 
          <input type="text" id="tva" name="tva" formControlName="tva"

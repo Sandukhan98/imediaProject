@@ -1,6 +1,6 @@
 <div class="agileits-top">
 <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
- 
+    <a class="previous" routerLink=".."><fa-icon [icon]="faArr"></fa-icon></a>
 
     <h3>Prénom  <span style="color:#ff0000">*</span></h3>
     <input type="text" id="firstName" name="firstName" formControlName="firstName">

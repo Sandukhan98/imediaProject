@@ -1,7 +1,8 @@
 <div class="agileits-top">
     <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+        
+        <a class="previous" routerLink=".."><fa-icon [icon]="faArr"></fa-icon></a>
         <h3>Email  <span style="color:#ff0000">*</span></h3>
-
          <input type="text" id="email" name="email" formControlName="email">
          <small style="color: red;"  
          *ngIf="emailForm.controls.email.errors?.required 

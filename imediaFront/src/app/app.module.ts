@@ -16,7 +16,7 @@ import { PubComponent } from './components/pub/pub.component';
 import { PersonalVerifComponent } from './components/registering/personal-verif/personal-verif.component';
 import { PersonalFoundComponent } from './components/registering/personal-found/personal-found.component';
 import { ReadyComponent } from './components/registering/ready/ready.component';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,8 @@ import { ReadyComponent } from './components/registering/ready/ready.component';
     BrowserAnimationsModule,
     MatSelectCountryModule.forRoot('fr'),
     HttpClientModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

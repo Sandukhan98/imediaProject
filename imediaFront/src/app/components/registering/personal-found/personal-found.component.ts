@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-personal-found',
   templateUrl: './personal-found.component.html',
   styleUrls: ['./personal-found.component.css']
 })
 export class PersonalFoundComponent implements OnInit {
+
+  faArr = faArrowLeft;
+  
   customerForm = new FormGroup({
     wantRepare : new FormControl(),
     isAcceptingConditions : new FormControl(false, [Validators.requiredTrue]),

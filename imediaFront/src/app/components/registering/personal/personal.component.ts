@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-personal',
   templateUrl: './personal.component.html',
@@ -9,6 +11,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 
 export class PersonalComponent implements OnInit {
+  faArr = faArrowLeft;
+  
   customerForm = new FormGroup({
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),

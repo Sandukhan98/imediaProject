@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-company-tva',
   templateUrl: './company-tva.component.html',
   styleUrls: ['./company-tva.component.css']
 })
 export class CompanyTVAComponent implements OnInit {
+  faArr = faArrowLeft;
+  
   tvaForm = new FormGroup({
     tva: new FormControl("", [Validators.required, Validators.pattern(/^(BE|Be|bE|be)\d{10}$/)])
   });

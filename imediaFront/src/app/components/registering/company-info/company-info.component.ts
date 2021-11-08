@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-company-info',
   templateUrl: './company-info.component.html',
   styleUrls: ['./company-info.component.css']
 })
 export class CompanyInfoComponent implements OnInit {
+  faArr = faArrowLeft;
+  
   customerForm = new FormGroup({
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),

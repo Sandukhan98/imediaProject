@@ -1,5 +1,6 @@
 <div class="agileits-top">
     <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+        <a class="previous" routerLink=".."><fa-icon [icon]="faArr"></fa-icon></a>
         <h2>Nous sommes heureux de vous accueillir à nouveau</h2>
         <h1>{{firstName}} {{lastName}}</h1>
         <div style="padding-top: 10%;">
