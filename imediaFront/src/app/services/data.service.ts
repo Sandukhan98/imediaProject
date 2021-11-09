@@ -32,7 +32,7 @@ export class DataService {
   }
 
   getPub() : Observable<any> {
-    return this.http.get('http://localhost:3000/pubfiles')
+    return this.http.get('http://192.168.1.60:3000/pubfiles')
   }
 
 }
