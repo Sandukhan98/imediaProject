@@ -31,4 +31,8 @@ export class DataService {
     return this.http.post('http://192.168.1.60:3000/workorder', customerID)
   }
 
+  getPub() : Observable<any> {
+    return this.http.get('http://localhost:3000/pubfiles')
+  }
+
 }

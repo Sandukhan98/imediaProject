@@ -1,1 +1,5 @@
-<img style="width: 100%; height: 100%;" src="/assets/images/pub.png">
+<mdb-carousel [isControls]="false" [animation]="'slide'">
+    <mdb-carousel-item *ngFor="let img of images">
+        <img  class="bg d-block w-100" src="{{img}}" >
+      </mdb-carousel-item>
+  </mdb-carousel>

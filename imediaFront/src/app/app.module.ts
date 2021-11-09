@@ -17,6 +17,7 @@ import { PersonalVerifComponent } from './components/registering/personal-verif/
 import { PersonalFoundComponent } from './components/registering/personal-found/personal-found.component';
 import { ReadyComponent } from './components/registering/ready/ready.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSelectCountryModule.forRoot('fr'),
     HttpClientModule,
     NgxIntlTelInputModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

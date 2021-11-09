@@ -2,6 +2,8 @@ var express = require("express");
 const { type } = require("os");
 var app = express();
 var cors = require('cors')
+const { createClient } = require("webdav");
+
 
 app.use(cors()) // Use this after the variable declaration
 app.use(express.json());       // to support JSON-encoded bodies
@@ -231,6 +233,24 @@ app.post("/workorder", (req, res, next) => {
     console.log(req.body); 
     res.send({response : "OK"});
 });
+
+app.get("/pubfiles", (req, res, next) => {
+    const client = createClient("http://192.168.1.60:8080/remote.php/dav/files/abdel/pub", {
+    username: "abdel",
+    password: "nassira8105"
+    });
+
+    client.getDirectoryContents("/").then((v)=>{
+        resList = []
+        v.forEach(element => {
+            resList.push({
+                filename : element.filename,
+                mime : element.mime
+            });
+        });
+        res.send(resList);
+    });
+})
 
 app.listen(3000, () => {
  console.log("Server running on port 3000");
