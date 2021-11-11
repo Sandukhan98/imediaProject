@@ -64,7 +64,7 @@
 
 
     <h3>Code postal  <span style="color:#ff0000">*</span></h3>
-    <input type="text" id="zipCode" name="zipCode" formControlName="zipCode"> 
+    <input type="number" id="zipCode" name="zipCode" formControlName="zipCode"> 
     <small style="color: red;"  
     *ngIf="customerForm.controls.zipCode.errors?.required 
     && customerForm.controls.zipCode.touched">
