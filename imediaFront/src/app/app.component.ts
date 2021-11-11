@@ -18,7 +18,7 @@ export class AppComponent {
   }
 
   setTimeout() {
-    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 10000);
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 60000);
   }
 
   @HostListener('window:mousemove') refreshUserStateMouse() {
