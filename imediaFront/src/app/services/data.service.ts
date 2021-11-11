@@ -35,4 +35,8 @@ export class DataService {
     return this.http.get('http://192.168.1.60:3000/pubfiles')
   }
 
+  getTimeOut() : Observable<any>{
+    return this.http.get('http://192.168.1.60:8000/config/config.json')
+  }
+
 }

@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,18 @@ export class AppComponent {
   active = true;
   userActivity : any = null;
   userInactive: Subject<any> = new Subject();
-
-  constructor() {
-    this.setTimeout();
-    this.userInactive.subscribe(() => this.active = false);
+  timeout = 60000;
+  constructor(private data : DataService) {
+    data.getTimeOut().subscribe((response) => {
+      console.log(response);
+      this.timeout = JSON.parse(response).adTimeout;
+      this.setTimeout();
+      this.userInactive.subscribe(() => this.active = false);
+    });
   }
 
   setTimeout() {
-    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 60000);
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
   }
 
   @HostListener('window:mousemove') refreshUserStateMouse() {

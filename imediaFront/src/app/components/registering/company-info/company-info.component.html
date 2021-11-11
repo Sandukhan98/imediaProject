@@ -83,7 +83,7 @@
     
     
         <h3>Code postal  <span style="color:#ff0000">*</span></h3>
-        <input type="text" id="zipCode" name="zipCode" formControlName="zipCode"> 
+        <input type="number" id="zipCode" name="zipCode" formControlName="zipCode"> 
         <small style="color: red;"  
         *ngIf="customerForm.controls.zipCode.errors?.required 
         && customerForm.controls.zipCode.touched">
@@ -112,11 +112,11 @@
         *ngIf="customerForm.controls.country.errors?.required 
         && customerForm.controls.country.touched">
         ce champ est obligatoire</small>
-        <div style="padding-top: 5%;">
+        <!-- <div style="padding-top: 5%;">
             <input type="checkbox" id="wantRepare" name="wantRepare" formControlName="wantRepare"
             style="margin-right: 1%;">
             <label for="wantRepare">Je viens pour faire une réparation</label>
-        </div>
+        </div> -->
         <div>
             <input type="checkbox" id="isAcceptingConditions" name="isAcceptingConditions" formControlName="isAcceptingConditions"
             style="margin-right: 1%;">

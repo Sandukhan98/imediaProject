@@ -10,9 +10,6 @@ app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded({extended: true})); 
 const request = require('request');
 const cheerio = require('cheerio');
-
-const CBE2JSONID = "a307ec3094339b5e";
-const CBE2JSONsecretKey = "6d1fe17cd778c2dcf362d679e0cc1f392b108c6350372bd8f51c54afc5fe818e";
 //get access token to execute lightspeed requests
 function getHeader(callback){
     request({
@@ -101,60 +98,77 @@ function addNewCustomer(info, callback){
     })
 }
 
+function getCbe2JsonKey(callback){
+
+        request({
+            url: "http://192.168.1.60:8000/config/config.json",
+            method: 'GET',
+        }, function(error, response, body){
+            if(error) {
+                console.error(error);
+            } else {
+                var jsBody = JSON.parse(body)
+                callback(jsBody.cbe2json.ID, jsBody.cbe2json. secretKey);
+            }
+        });
+}
+
 //parsing html and getting information
 function getCompanyInfo(vat, callback) {
-    request({
-        url: "https://api.cbe2json.be/byCBE",
-        method: 'POST',
-        body : JSON.stringify({
-            clientId : CBE2JSONID,
-            secretKey : CBE2JSONsecretKey,
-            data : {
-                cbe: vat.number
-              }
-        })
-    }, function(error, response, body){
-        if(error) {
-            console.error(error);
-        } else {
-            var jsBody = JSON.parse(body)
-            var info = {}
-
-            if(jsBody.enterpriseNumber){
-                info = {
-                    tva : "BE" + jsBody.enterpriseNumber.replace(/\./g,""),
-                    company : jsBody.denominations[0].denomination,
-                    address : jsBody.addresses[0].streetFR + " " + jsBody.addresses[0].houseNumber,
-                    zip : jsBody.addresses[0].zipcode,
-                    city : jsBody.addresses[0].municipalityFR,
+    getCbe2JsonKey((CBE2JSONID, CBE2JSONsecretKey) => {
+        request({
+            url: "https://api.cbe2json.be/byCBE",
+            method: 'POST',
+            body : JSON.stringify({
+                clientId : CBE2JSONID,
+                secretKey : CBE2JSONsecretKey,
+                data : {
+                    cbe: vat.number
+                  }
+            })
+        }, function(error, response, body){
+            if(error) {
+                console.error(error);
+            } else {
+                var jsBody = JSON.parse(body)
+                var info = {}
+    
+                if(jsBody.enterpriseNumber){
+                    info = {
+                        tva : "BE" + jsBody.enterpriseNumber.replace(/\./g,""),
+                        company : jsBody.denominations[0].denomination,
+                        address : jsBody.addresses[0].streetFR + " " + jsBody.addresses[0].houseNumber,
+                        zip : jsBody.addresses[0].zipcode,
+                        city : jsBody.addresses[0].municipalityFR,
+                        name : "",
+                        lastname : ""
+                    }
+    
+                    jsBody.establishments[0].contacts.forEach(element => {
+                        if(element.contactType == "TEL")
+                        info["tel"] = element.value.replace(/\//g, "").replace(/\./g, "");
+                        else if(element.contactType == "EMAIL")
+                        info["email"] = element.value;
+                    });
+                }
+                else{
+                    info = {
+                    tva : "",
                     name : "",
-                    lastname : ""
+                    address : "",
+                    zip : "",
+                    city : "",
+                    tel : "",
+                    email : "",
+                    lastName : "",
+                    company : ""
+                    }
                 }
-
-                jsBody.establishments[0].contacts.forEach(element => {
-                    if(element.contactType == "TEL")
-                    info["tel"] = element.value.replace(/\//g, "").replace(/\./g, "");
-                    else if(element.contactType == "EMAIL")
-                    info["email"] = element.value;
-                });
+                callback(info);
+                
             }
-            else{
-                info = {
-                tva : "",
-                name : "",
-                address : "",
-                zip : "",
-                city : "",
-                tel : "",
-                email : "",
-                lastName : "",
-                company : ""
-                }
-            }
-            callback(info);
-            
-        }
-    });
+        });
+    })
 }
 
 // app.post("/vat", (req, res, next) => {
@@ -170,6 +184,8 @@ app.post("/tva", (req, res, next) => {
         res.send(info);
     })
 });
+
+
 
 app.post("/addCustomer", (req, res, next) => {
     verifyClientExistence((customer) => {
