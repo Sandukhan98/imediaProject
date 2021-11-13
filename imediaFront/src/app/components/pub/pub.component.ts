@@ -8,7 +8,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class PubComponent implements OnInit {
 
-  images : any =[];
+  images : Array<String> =[];
+  onePic : boolean = false;
   constructor(private data : DataService) { }
 
   ngOnInit(): void {
@@ -17,6 +18,8 @@ export class PubComponent implements OnInit {
         response.forEach((element : any) => {
           this.images.push("http://192.168.1.60:8000/pub/" + element.filename);
         });
+
+        this.onePic = this.images.length == 1;
       },
       (error) => { console.log(error); });
   }

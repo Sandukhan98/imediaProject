@@ -1,5 +1,9 @@
 <mdb-carousel [isControls]="false" [animation]="'slide'">
-    <mdb-carousel-item *ngFor="let img of images">
-        <img  class="bg d-block w-100" src="{{img}}" >
-      </mdb-carousel-item>
+    <img  *ngIf="onePic; else morePic" class="bg d-block w-100" src="{{images[0]}}" >
+    <ng-template #morePic>
+        <mdb-carousel-item  *ngFor="let img of images">
+            <img  class="bg d-block w-100" src="{{img}}" >
+        </mdb-carousel-item>
+    </ng-template>
+    
   </mdb-carousel>
