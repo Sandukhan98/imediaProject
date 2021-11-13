@@ -52,7 +52,7 @@ export class PersonalComponent implements OnInit {
       address : this.customerForm.value.address,
       zip : this.customerForm.value.zip,
       city : this.customerForm.value.city,
-      tel : "00" + this.customerForm.value.phone.e164Number.substr(1),
+      tel : "+" + this.customerForm.value.phone.e164Number.substr(1),
       email : this.customerForm.value.email,
       country : this.customerForm.value.country.name}).subscribe(
       (response) => {
