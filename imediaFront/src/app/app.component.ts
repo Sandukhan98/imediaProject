@@ -14,7 +14,9 @@ export class AppComponent {
   userInactive: Subject<any> = new Subject();
   timeout = 60000;
   constructor(private data : DataService) {
-    this.intTimeout();
+    setTimeout(() => {
+      this.intTimeout();
+    }, 3000);
     setInterval(()=>{
       this.intTimeout();
     }, 3600000);
