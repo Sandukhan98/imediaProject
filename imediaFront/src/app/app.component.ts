@@ -8,7 +8,7 @@ import { DataService } from './services/data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'imediaFront test';
+  title = 'imediaFront';
   active = true;
   userActivity : any = null;
   userInactive: Subject<any> = new Subject();
@@ -18,7 +18,7 @@ export class AppComponent {
     this.setTimeout();
     setInterval(()=> {
       this.setTimeout();
-    }, 1000);
+    }, 3600000);
   }
 
   setTimeout() {
