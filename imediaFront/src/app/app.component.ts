@@ -14,12 +14,15 @@ export class AppComponent {
   userInactive: Subject<any> = new Subject();
   timeout = 60000;
   constructor(private data : DataService) {
+    this.intTimeout();
     setInterval(()=>{
       this.intTimeout();
-    }, 1000);
+    }, 3600000);
   }
 
   intTimeout() {
+    console.log("init timeout");
+    
     this.data.getTimeOut().subscribe((response) => {
       
       console.log(response);
