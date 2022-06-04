@@ -24,6 +24,7 @@ export class AppComponent {
   }
 
   setTimeout() {
+    console.log("called => ");
     this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
   }
 
