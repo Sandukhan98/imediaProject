@@ -14,21 +14,17 @@ export class AppComponent {
   userInactive: Subject<any> = new Subject();
   timeout = 60000;
   constructor(private data : DataService) {
-    console.log("adTimeOut construct => ");
-    this.setTimeout();
-    setInterval(()=> {
-      this.setTimeout();
-    }, 3600000);
-  }
-
-  setTimeout() {
-    this.data.getTimeOut().subscribe((response) => {
+    data.getTimeOut().subscribe((response) => {
       console.log(response);
       this.timeout = response.adTimeout;
-      this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
+      this.setTimeout();
       console.log("adTimeOut => " + response.adTimeout);
       this.userInactive.subscribe(() => this.active = false);
     });
+  }
+
+  setTimeout() {
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
   }
 
   @HostListener('window:mousemove') refreshUserStateMouse() {
