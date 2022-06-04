@@ -14,6 +14,7 @@ export class AppComponent {
   userInactive: Subject<any> = new Subject();
   timeout = 60000;
   constructor(private data : DataService) {
+    console.log("adTimeOut construct => ");
     data.getTimeOut().subscribe((response) => {
       console.log(response);
       this.timeout = response.adTimeout;
