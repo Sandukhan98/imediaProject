@@ -15,17 +15,20 @@ export class AppComponent {
   timeout = 60000;
   constructor(private data : DataService) {
     console.log("adTimeOut construct => ");
-    data.getTimeOut().subscribe((response) => {
-      console.log(response);
-      this.timeout = response.adTimeout;
+    this.setTimeout();
+    setInterval(()=> {
       this.setTimeout();
-      console.log("adTimeOut => " + response.adTimeout);
-      this.userInactive.subscribe(() => this.active = false);
-    });
+    }, 1000);
   }
 
   setTimeout() {
-    this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
+    this.data.getTimeOut().subscribe((response) => {
+      console.log(response);
+      this.timeout = response.adTimeout;
+      this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
+      console.log("adTimeOut => " + response.adTimeout);
+      this.userInactive.subscribe(() => this.active = false);
+    });
   }
 
   @HostListener('window:mousemove') refreshUserStateMouse() {
