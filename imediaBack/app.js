@@ -258,7 +258,7 @@ app.get("/pubfiles", (req, res, next) => {
 
     request({
         url:"https://imedia-38182-default-rtdb.europe-west1.firebasedatabase.app/ip.json",
-        method: 'GET'}, function (error, res, serverIpBody) {
+        method: 'GET'}, function (error, response, serverIpBody) {
 
             const client = createClient("http://"+JSON.parse(serverIpBody)+":8080/remote.php/dav/files/abdel/pub", {
                 username: "abdel",
