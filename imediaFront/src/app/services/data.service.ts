@@ -41,6 +41,8 @@ export class DataService {
   }
 
   getTimeOut() : Observable<any>{
+    console.log("caaaallleeeddd");
+    
     return this.http.get('http://'+ this.serverIp +':8000/config/config.json')
   }
 
