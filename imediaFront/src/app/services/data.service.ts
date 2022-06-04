@@ -12,7 +12,6 @@ export class DataService {
     this.interval = setInterval(() => {
       this.http.get("https://imedia-38182-default-rtdb.europe-west1.firebasedatabase.app/ip.json").subscribe((res) => {
         this.serverIp = res as string;
-        console.log("server IP ===>> " + this.serverIp);
       })
     }, 1000);
   }

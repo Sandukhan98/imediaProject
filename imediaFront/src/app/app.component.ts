@@ -18,6 +18,7 @@ export class AppComponent {
       console.log(response);
       this.timeout = response.adTimeout;
       this.setTimeout();
+      console.log("adTimeOut => " + response.adTimeout);
       this.userInactive.subscribe(() => this.active = false);
     });
   }
