@@ -8,7 +8,7 @@ import { DataService } from './services/data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'imediaFront';
+  title = 'imediaFront test';
   active = true;
   userActivity : any = null;
   userInactive: Subject<any> = new Subject();
