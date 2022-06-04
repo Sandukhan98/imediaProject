@@ -14,17 +14,24 @@ export class AppComponent {
   userInactive: Subject<any> = new Subject();
   timeout = 60000;
   constructor(private data : DataService) {
-    data.getTimeOut().subscribe((response) => {
+    setInterval(()=>{
+      this.intTimeout();
+    }, 1000);
+  }
+
+  intTimeout() {
+    this.data.getTimeOut().subscribe((response) => {
+      
       console.log(response);
       this.timeout = response.adTimeout;
       this.setTimeout();
       console.log("adTimeOut => " + response.adTimeout);
       this.userInactive.subscribe(() => this.active = false);
     });
+    
   }
 
-  setTimeout() {
-    console.log("called => ");
+  setTimeout():void{
     this.userActivity = setTimeout(() => this.userInactive.next(undefined), this.timeout);
   }
 
