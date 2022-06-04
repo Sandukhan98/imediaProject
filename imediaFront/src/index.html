@@ -13,7 +13,12 @@
   
 </head>
 <body>
-  
+  <script>
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "https://imedia-38182-default-rtdb.europe-west1.firebasedatabase.app/ip.json", false ); // false for synchronous request
+    xmlHttp.send( null );
+    document.body.style.backgroundImage = "url('http://"+ JSON.parse(xmlHttp.responseText) +":8000/config/background.jpg')";
+  </script>
   <app-root></app-root>
 </body>
 </html>

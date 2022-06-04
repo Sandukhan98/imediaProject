@@ -16,7 +16,7 @@ export class PubComponent implements OnInit {
     this.data.getPub().subscribe(
       (response) => {
         response.forEach((element : any) => {
-          this.images.push("http://192.168.1.60:8000/pub/" + element.filename);
+          this.images.push("http://"+this.data.serverIp+":8000/pub/" + element.filename);
         });
 
         this.onePic = this.images.length == 1;

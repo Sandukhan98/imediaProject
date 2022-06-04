@@ -101,16 +101,20 @@ function addNewCustomer(info, callback){
 function getCbe2JsonKey(callback){
 
         request({
-            url: "http://192.168.1.60:8000/config/config.json",
-            method: 'GET',
-        }, function(error, response, body){
-            if(error) {
-                console.error(error);
-            } else {
-                var jsBody = JSON.parse(body)
-                callback(jsBody.cbe2json.ID, jsBody.cbe2json. secretKey);
-            }
-        });
+            url:"https://imedia-38182-default-rtdb.europe-west1.firebasedatabase.app/ip.json",
+            method: 'GET'}, function (error, res, serverIpBody) {
+                request({
+                    url: "http://"+JSON.parse(serverIpBody)+":8000/config/config.json",
+                    method: 'GET',
+                }, function(error, response, body){
+                    if(error) {
+                        console.error(error);
+                    } else {
+                        var jsBody = JSON.parse(body)
+                        callback(jsBody.cbe2json.ID, jsBody.cbe2json. secretKey);
+                    }
+                });
+            })
 }
 
 //parsing html and getting information
@@ -251,21 +255,27 @@ app.post("/workorder", (req, res, next) => {
 });
 
 app.get("/pubfiles", (req, res, next) => {
-    const client = createClient("http://192.168.1.60:8080/remote.php/dav/files/abdel/pub", {
-    username: "abdel",
-    password: "nassira8105"
-    });
 
-    client.getDirectoryContents("/").then((v)=>{
-        resList = []
-        v.forEach(element => {
-            resList.push({
-                filename : element.filename,
-                mime : element.mime
-            });
-        });
-        res.send(resList);
-    });
+    request({
+        url:"https://imedia-38182-default-rtdb.europe-west1.firebasedatabase.app/ip.json",
+        method: 'GET'}, function (error, res, serverIpBody) {
+
+            const client = createClient("http://"+JSON.parse(serverIpBody)+":8080/remote.php/dav/files/abdel/pub", {
+                username: "abdel",
+                password: "nassira8105"
+                });
+            
+                client.getDirectoryContents("/").then((v)=>{
+                    resList = []
+                    v.forEach(element => {
+                        resList.push({
+                            filename : element.filename,
+                            mime : element.mime
+                        });
+                    });
+                    res.send(resList);
+                });
+        })
 })
 
 app.listen(3000, () => {
